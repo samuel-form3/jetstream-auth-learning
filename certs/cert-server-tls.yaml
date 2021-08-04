@@ -1,0 +1,29 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: nats-server-cert
+  namespace: default
+spec:
+  secretName: nats-server-tls
+  duration: 2160h
+  renewBefore: 360h
+  subject:
+    organizations:
+    - Nats
+  commonName: nats-server
+  isCA: false
+  privateKey:
+    algorithm: ECDSA
+    encoding: PKCS1
+    size: 256
+  usages:
+    - signing
+    - key encipherment
+    - server auth
+    - client auth
+  dnsNames:
+  - "*.nats.default.svc.cluster.local"
+  issuerRef:
+    name: ca-issuer
+    kind: Issuer
+    group: cert-manager.io

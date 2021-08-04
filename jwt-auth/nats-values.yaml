@@ -1,0 +1,31 @@
+nats:
+  tls:
+    secret:
+      name: nats-client-tls
+    ca: "ca.crt"
+    cert: "tls.crt"
+    key: "tls.key"
+    verify: true
+  jetstream:
+    enabled: false
+  logging:
+    debug: true
+    trace: true
+  
+auth:
+  enabled: true
+  resolver:
+    type: memory
+    configMap:
+      name: nats-account-resolver
+      key: resolver.conf
+
+cluster:
+  enabled: true
+  replicas: 1
+  tls:
+    secret:
+      name: nats-server-tls
+    ca: "ca.crt"
+    cert: "tls.crt"
+    key: "tls.key"

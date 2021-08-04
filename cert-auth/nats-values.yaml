@@ -1,0 +1,33 @@
+nats:
+  tls:
+    secret:
+      name: nats-client-tls
+    ca: "ca.crt"
+    cert: "tls.crt"
+    key: "tls.key"
+    verifyAndMap: true
+  jetstream:
+    enabled: false
+  logging:
+    debug: true
+    trace: true
+  
+auth:
+  enabled: true
+  basic:
+    users:
+      - user: "paymentservice@form3.tech"
+
+
+cluster:
+  enabled: true
+  replicas: 1
+  tls:
+    secret:
+      name: nats-server-tls
+    ca: "ca.crt"
+    cert: "tls.crt"
+    key: "tls.key"
+
+natsbox:
+  enabled: false

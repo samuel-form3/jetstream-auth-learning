@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nats-box-cert
+  namespace: default
+spec:
+  containers:
+  - command:
+    - tail
+    - -f
+    - /dev/null
+    env:
+    - name: NATS_URL
+      value: nats
+    image: natsio/nats-box:0.6.0
+    imagePullPolicy: IfNotPresent
+    lifecycle:
+      postStart:
+        exec:
+          command:
+          - /bin/sh
+          - -c
+          - cp /etc/nats-certs/clients/nats-client-tls/* /usr/local/share/ca-certificates
+            && update-ca-certificates
+    name: nats-box
+    volumeMounts:
+    - mountPath: /etc/nats-certs/clients/nats-client-tls
+      name: nats-client-tls-clients-volume
+    - mountPath: /etc/nats-certs/clients/form3-user-cert-tls
+      name: form3-user-cert-tls
+  volumes:
+  - name: form3-user-cert-tls
+    secret:
+      secretName: form3-user-cert-tls
+  - name: nats-client-tls-clients-volume
+    secret:
+      defaultMode: 420
+      secretName: nats-client-tls
