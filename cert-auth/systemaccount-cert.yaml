@@ -1,0 +1,28 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: systemaccount-cert
+  namespace: default
+spec:
+  secretName: systemaccount-cert-tls
+  duration: 2160h
+  renewBefore: 360h
+  subject:
+    organizations:
+    - form3
+  isCA: false
+  privateKey:
+    algorithm: ECDSA
+    encoding: PKCS1
+    size: 256
+  usages:
+    - signing
+    - key encipherment
+    - server auth
+    - client auth
+  emailAddresses:
+  - "systemaccount@form3.tech"
+  issuerRef:
+    name: ca-issuer
+    kind: Issuer
+    group: cert-manager.io
