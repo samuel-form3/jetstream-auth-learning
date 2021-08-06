@@ -8,7 +8,7 @@ export NSC_HOME=$(pwd)/jwt-auth/jwt/accounts
 mkdir -p "$NKEYS_PATH"
 mkdir -p "$NSC_HOME"
 
-nsc add operator --name form3
+nsc add operator --name form3 -d $(pwd)/jwt-auth/jwt/nsc/nats
 
 # Create system account
 nsc add account --name SYS
