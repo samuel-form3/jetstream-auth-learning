@@ -15,12 +15,19 @@ nats:
 auth:
   enabled: true
   basic:
+    users:
+    - user: paymentapi.form3.tech
+      permissions:
+        publish:
+          allow: payments.>
+        subscribe:
+          allow: payments.>
     accounts:
-      PAYMENTSERVICE:
-        users:
-          - user: paymentservice@form3.tech
-        exports:
-          - stream: payments.>
+      # PAYMENTSERVICE:
+      #   users:
+      #     - user: paymentservice@form3.tech
+      #   exports:
+      #     - stream: payments.>
       SYS:
         users:
           - user: systemaccount@form3.tech

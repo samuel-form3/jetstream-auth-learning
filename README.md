@@ -11,8 +11,16 @@ make create-cluster
 make install-nats-with-jwt-auth
 ```
 
+
+Subscribe
 ```bash
-nats sub --tlscert=/etc/nats-certs/clients/nats-client-tls/tls.crt --tlskey=/etc/nats-certs/clients/nats-client-tls/tls.key --tlsca=/etc/nats-certs/clients/nats-client-tls/ca.crt --creds=/etc/nats-creds/readmodelservice/readmodelservice.creds payments.done
+nats sub --tlscert=/etc/nats-certs/clients/form3-user-cert-tls/tls.crt --tlskey=/etc/nats-certs/clients/form3-user-cert-tls/tls.key --tlsca=/etc/nats-certs/clients/form3-user-cert-tls/ca.crt payments.done
+```
+
+
+Check server list
+```
+nats server ls --tlscert=/etc/nats-certs/clients/systemaccount-cert-tls/tls.crt --tlskey=/etc/nats-certs/clients/systemaccount-cert-tls/tls.key --tlsca=/etc/nats-certs/clients/systemaccount-cert-tls/ca.crt
 ```
 
 ## JWT Auth

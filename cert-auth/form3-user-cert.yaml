@@ -22,8 +22,8 @@ spec:
     - key encipherment
     - server auth
     - client auth
-  emailAddresses:
-  - "paymentservice@form3.tech"
+  dnsNames:
+  - paymentapi.form3.tech
   issuerRef:
     name: ca-issuer
     kind: Issuer
