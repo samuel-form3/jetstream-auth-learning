@@ -4,6 +4,10 @@ kubectl apply -f ./cert-auth/form3-user-cert.yaml \
    --namespace default \
    --context kind-kind
 
+kubectl apply -f ./cert-auth/ca-user-cert.yaml \
+   --namespace default \
+   --context kind-kind
+
 kubectl apply -f ./cert-auth/systemaccount-cert.yaml \
    --namespace default \
    --context kind-kind

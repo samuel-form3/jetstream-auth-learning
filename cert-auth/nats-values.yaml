@@ -7,27 +7,42 @@ nats:
     key: "tls.key"
     verifyAndMap: true
   jetstream:
-    enabled: false
-  logging:
-    debug: true
-    trace: true
+    enabled: true
+    domain: hub
   
 auth:
   enabled: true
   basic:
-    users:
-    - user: paymentapi.form3.tech
-      permissions:
-        publish:
-          allow: payments.>
-        subscribe:
-          allow: payments.>
     accounts:
-      # PAYMENTSERVICE:
-      #   users:
-      #     - user: paymentservice@form3.tech
-      #   exports:
-      #     - stream: payments.>
+      # Hub Account
+      form3:
+        jetstream: true
+        users:
+        - user: form3.form3.tech
+        exports:
+          - service: $JS.hub.API.CONSUMER.MSG.NEXT.central.dur
+            response_type: stream
+          - service: $JS.ACK.central.dur.>
+          - service: cent.>
+
+      # CA Account
+      ca:
+        jetstream: true
+        users:
+        - user: ca.form3.tech
+        imports:
+        - service:
+            account: form3
+            subject: $JS.hub.API.CONSUMER.MSG.NEXT.central.dur
+          to: JS.form3.API.CONSUMER.MSG.NEXT.central.dur
+        - service:
+            account: form3
+            subject: $JS.ACK.central.dur.>
+        - service:
+            account: form3
+            subject: cent.>
+
+      # SYS Account
       SYS:
         users:
           - user: systemaccount@form3.tech
@@ -36,7 +51,7 @@ auth:
 
 cluster:
   enabled: true
-  replicas: 1
+  replicas: 3
   tls:
     secret:
       name: nats-server-tls

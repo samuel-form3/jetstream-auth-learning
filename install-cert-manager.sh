@@ -4,10 +4,9 @@ helm upgrade -i \
   cert-manager jetstack/cert-manager \
   --namespace cert-manager \
   --create-namespace \
-  --version v1.4.0 \
   --set installCRDs=true \
   --set prometheus.enabled=false \
-  --wait=true
+  --wait
 
 kubectl apply -f ./certs/ca-issuer.yaml \
    --namespace default \
